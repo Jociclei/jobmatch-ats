@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JobMatch ATS ajuda você a comparar seu currículo com uma vaga e melhorar a apresentação das suas experiências sem inventar informações.">
+  <meta name="theme-color" content="#6d4aff">
+  <title>JobMatch ATS — currículo alinhado à vaga</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="JobMatch ATS início">
+      <span class="brand-mark">JM</span>
+      <span>JobMatch <b>ATS</b></span>
+    </a>
+    <a class="top-link" href="#como-funciona">Como funciona</a>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> PREPARE-SE PARA A PRÓXIMA OPORTUNIDADE</div>
+      <h1>Seu currículo merece<br><span>chegar à entrevista.</span></h1>
+      <p class="hero-copy">Compare seu currículo com uma vaga, descubra palavras-chave importantes e organize suas experiências com mais clareza.</p>
+      <div class="trust-note"><span aria-hidden="true">✓</span> Sem inventar experiências, competências ou resultados.</div>
+    </section>
+
+    <section class="workspace" aria-label="Análise de currículo">
+      <div class="input-panel panel">
+        <div class="section-heading">
+          <div><span class="step">01</span><h2>Adicione as informações</h2></div>
+          <span class="optional-label">Seus dados ficam neste navegador</span>
+        </div>
+        <label for="job-description">Descrição da vaga <span class="required">*</span></label>
+        <textarea id="job-description" rows="8" placeholder="Cole aqui a descrição completa da vaga, incluindo responsabilidades e requisitos..."></textarea>
+        <div class="field-help">Dica: inclua requisitos, ferramentas e competências mencionadas no anúncio.</div>
+
+        <label for="resume-text" class="resume-label">Seu currículo atual <span class="required">*</span></label>
+        <textarea id="resume-text" rows="10" placeholder="Cole aqui o texto do seu currículo: resumo, experiências, formação, competências e cursos..."></textarea>
+        <div class="field-help">Não inclua dados sensíveis desnecessários, como CPF, endereço completo ou documentos pessoais.</div>
+
+        <div class="form-actions">
+          <button id="analyze-btn" class="btn btn-primary"><span aria-hidden="true">✦</span> Analisar compatibilidade</button>
+          <button id="example-btn" class="btn btn-secondary" type="button">Usar exemplo</button>
+        </div>
+        <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      </div>
+
+      <aside class="side-panel">
+        <div class="panel mini-panel">
+          <div class="mini-icon">✦</div>
+          <h3>O que você vai receber</h3>
+          <ul class="feature-list">
+            <li><span>✓</span> Pontuação estimada de compatibilidade</li>
+            <li><span>✓</span> Palavras-chave encontradas</li>
+            <li><span>✓</span> Termos da vaga que faltam no currículo</li>
+            <li><span>✓</span> Sugestões para melhorar a apresentação</li>
+            <li><span>✓</span> Versão revisada para exportar em PDF</li>
+          </ul>
+        </div>
+        <div class="panel reminder-panel">
+          <div class="reminder-title"><span aria-hidden="true">ⓘ</span> Transparência primeiro</div>
+          <p>A pontuação é uma estimativa baseada em palavras-chave. Sistemas ATS variam e podem avaliar outros critérios. Só adicione ao currículo informações que sejam verdadeiras para você.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="results" class="results hidden" aria-live="polite">
+      <div class="results-heading">
+        <div><span class="step">02</span><h2>Resultado da análise</h2><p class="muted">Use este diagnóstico como orientação, não como garantia de aprovação.</p></div>
+        <button id="reanalyze-btn" class="btn btn-secondary">Recalcular</button>
+      </div>
+      <div class="results-grid">
+        <article class="panel score-panel">
+          <div class="score-top"><div><p class="muted">Compatibilidade estimada</p><h3 id="score-number">0%</h3></div><span id="score-status" class="status-pill">Análise concluída</span></div>
+          <div class="progress-track"><div id="score-bar" class="progress-bar"></div></div>
+          <p id="score-summary" class="score-summary"></p>
+          <div class="score-stats">
+            <div><strong id="matched-count">0</strong><span>Encontradas</span></div>
+            <div><strong id="missing-count">0</strong><span>Não identificadas</span></div>
+            <div><strong id="total-count">0</strong><span>Termos analisados</span></div>
+          </div>
+        </article>
+        <article class="panel keywords-panel">
+          <h3>Palavras-chave encontradas</h3>
+          <p class="muted">Termos identificados no texto do currículo.</p>
+          <div id="matched-keywords" class="chips"></div>
+          <h3 class="missing-heading">Palavras-chave não identificadas</h3>
+          <p class="muted">Confira se você realmente possui essas competências. Não as adicione se não forem verdadeiras.</p>
+          <div id="missing-keywords" class="chips"></div>
+        </article>
+      </div>
+      <article class="panel suggestions-panel">
+        <h3>O que pode melhorar</h3>
+        <ul id="suggestions-list" class="suggestions-list"></ul>
+      </article>
+      <article class="panel resume-output-panel">
+        <div class="output-heading"><div><span class="step">03</span><h2>Seu currículo revisado</h2><p class="muted">Uma estrutura mais clara, usando apenas o conteúdo que você forneceu.</p></div><button id="print-btn" class="btn btn-primary">Exportar / salvar em PDF</button></div>
+        <div class="integrity-note"><strong>Regra de integridade:</strong> revise o texto e confirme que todas as informações continuam corretas antes de enviar o currículo.</div>
+        <textarea id="optimized-resume" rows="18" aria-label="Currículo revisado editável"></textarea>
+        <div class="output-actions"><button id="copy-btn" class="btn btn-secondary">Copiar texto</button><span id="copy-message" class="muted" role="status"></span></div>
+      </article>
+    </section>
+
+    <section id="como-funciona" class="how-section">
+      <div><span class="eyebrow">SIMPLES E TRANSPARENTE</span><h2>Como funciona?</h2></div>
+      <div class="how-grid">
+        <div class="how-card"><span>1</span><h3>Cole os textos</h3><p>Insira a descrição da vaga e o currículo que deseja revisar.</p></div>
+        <div class="how-card"><span>2</span><h3>Compare os termos</h3><p>A ferramenta identifica palavras-chave compartilhadas e termos não localizados.</p></div>
+        <div class="how-card"><span>3</span><h3>Revise e exporte</h3><p>Confira as sugestões, edite o resultado e salve em PDF para revisar.</p></div>
+      </div>
+    </section>
+    <footer><span class="brand-mark small">JM</span><span>JobMatch ATS</span><span class="footer-note">Projeto educacional de portfólio · versão demonstrativa</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
